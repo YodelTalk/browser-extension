@@ -1,0 +1,28 @@
+{
+    "name": "yodel.io",
+    "version": "0.5.2",
+    "description": "Click to call via yodel.io",
+    "applications.gecko.id": "",
+    "manifest_version": 2,
+    "icons": {
+        "32": "icons/yodel-32.png",
+        "48": "icons/yodel-48.png",
+        "96": "icons/yodel-96.png",
+        "128": "icons/yodel-128.png"
+    },
+    "browser_action": {
+        "default_icon": "$assets/yodel-48.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "app.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
