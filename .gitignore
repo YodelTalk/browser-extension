@@ -1,6 +1,4 @@
 node_modules/
-build/
-web-ext-artifacts/
-releases/
+dist/
 
 .DS_Store

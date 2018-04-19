@@ -6,12 +6,15 @@ function replaceText (node) {
       return
     }
 
-    let content = node.textContent
-    let numbers = findPhoneNumbers(content)
+    const content = node.textContent
+    const numbers = findPhoneNumbers(content)
 
     for (let i = 0; i < numbers.length; i++) {
-      let linkText = content.substr(numbers[i]['startsAt'], numbers[i]['endsAt'] - numbers[i]['startsAt'])
-      let countryCode = getCountryCallingCode(numbers[i]['country'])
+      const linkText = content.substr(numbers[i]['startsAt'], numbers[i]['endsAt'] - numbers[i]['startsAt'])
+      if (node.parentNode.tagName === 'A' && linkText === content) {
+        continue
+      }
+      const countryCode = getCountryCallingCode(numbers[i]['country'])
 
       let link = document.createElement('a')
       link.setAttribute('href', 'https://yodel.io/c/' + countryCode + numbers[i]['phone'])
@@ -19,8 +22,8 @@ function replaceText (node) {
       link.setAttribute('title', 'call via yodel.io')
       link.appendChild(document.createTextNode(linkText))
 
-      let beforeText = content.substr(0, numbers[i]['startsAt'])
-      let afterText = content.substr(numbers[i]['endsAt'])
+      const beforeText = content.substr(0, numbers[i]['startsAt'])
+      const afterText = content.substr(numbers[i]['endsAt'])
 
       let replace = document.createElement('span')
       replace.setAttribute('class', 'yodel-replaced-link')
