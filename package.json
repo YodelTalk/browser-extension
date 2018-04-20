@@ -16,6 +16,7 @@
   },
   "scripts": {
     "start": "npx webpack --watch",
-    "build": "npx webpack -p"
+    "build": "npx webpack -p",
+    "build:crx": "npm run build && /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --pack-extension=./dist"
   }
 }

@@ -1,6 +1,6 @@
 {
-    "name": "yodel.io",
-    "version": "0.5.2",
+    "name": "Yodel Phone System",
+    "version": "0.5.3",
     "description": "Click to call via yodel.io",
     "manifest_version": 2,
     "icons": {
