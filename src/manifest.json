@@ -1,7 +1,11 @@
 {
+  "update_url": "https://clients2.google.com/service/update2/crx",
   "name": "Yodel Phone System",
+  "short_name": "Yodel",
   "version": "VERSION",
   "description": "DESCRIPTION",
+  "author": "YodelTalk",
+  "homepage_url": "https://www.yodel.io",
   "manifest_version": 2,
   "icons": {
     "32": "icons/yodel-32.png",
