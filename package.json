@@ -1,6 +1,6 @@
 {
   "name": "yodel.io",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Click to call via yodel.io",
   "main": "app.js",
   "repository": "github.com/yodeltalk/yodel-extension",
