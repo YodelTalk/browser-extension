@@ -1,3 +1,5 @@
+/* global Node, MutationObserver */
+
 import { findPhoneNumbers, getCountryCallingCode, parseNumber } from 'libphonenumber-js'
 
 function replaceText (node) {
