@@ -7,12 +7,12 @@ module.exports = {
   mode: 'none',
   // Entry files for our popup and background pages
   entry: {
-    app: './src/app.js'
+    index: './src/index.js'
   },
   // Extension will be built into ./dist folder, which we can then load as unpacked extension in Chrome
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].js'
   },
   // Here we define loaders for different file types
   module: {
