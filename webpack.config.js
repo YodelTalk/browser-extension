@@ -1,8 +1,7 @@
 const path = require('path')
-// const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const fs = require('fs')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WriteJsonPlugin = require('write-json-webpack-plugin')
 
 module.exports = {
   mode: 'none',
@@ -42,17 +41,23 @@ module.exports = {
     ]
   },
   plugins: [
-    // // create popup.html from template and inject styles and script bundles
-    // new HtmlWebpackPlugin({
-    //   inject: true,
-    //   chunks: ['popup'],
-    //   filename: 'popup.html',
-    //   template: './src/popup.html'
-    // }),
+    new WriteJsonPlugin({
+      object: createManifest(),
+      filename: 'manifest.json'
+    }),
     // copy extension manifest and icons
     new CopyWebpackPlugin([
-      { from: './src/manifest.json' },
       { context: './src/icons', from: '**', to: 'icons' }
     ])
   ]
+}
+
+function createManifest () {
+  const manifest = JSON.parse(fs.readFileSync('./src/manifest.json'))
+  const packageJson = JSON.parse(fs.readFileSync('./package.json'))
+
+  return Object.assign(manifest, {
+    version: packageJson.version,
+    description: packageJson.description
+  })
 }
