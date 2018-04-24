@@ -33,7 +33,7 @@ function replaceText (node, country) {
       if (node.parentNode.nodeName === 'A' && linkText === content) {
         replace.appendChild(document.createTextNode(linkText))
       } else {
-        const countryCode = getCountryCallingCode(numbers[i]['country'])
+        const countryCode = '+' + getCountryCallingCode(numbers[i]['country'])
 
         let link = document.createElement('a')
         link.setAttribute('href', 'https://yodel.io/c/' + countryCode + numbers[i]['phone'])
@@ -57,10 +57,10 @@ function replaceText (node, country) {
     node.nodeName === 'A' && node.getAttribute('href') &&
     node.getAttribute('href').substr(0, 4) === 'tel:'
   ) {
-    let number = parseNumber(node.getAttribute('href').substr(4))
+    let number = parseNumber(node.getAttribute('href').substr(4), country)
 
     if ('country' in number && 'phone' in number) {
-      number = getCountryCallingCode(number['country']) + number['phone']
+      number = '+' + getCountryCallingCode(number['country']) + number['phone']
     } else {
       number = node.getAttribute('href').substr(4).replace(/\D/g, '')
     }
