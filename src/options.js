@@ -1,3 +1,5 @@
+/* global chrome */
+
 function saveOptions () {
   var country = document.getElementById('country').checked
   chrome.storage.sync.set({
