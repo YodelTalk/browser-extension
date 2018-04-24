@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WriteJsonPlugin = require('write-json-webpack-plugin')
 
@@ -7,7 +8,8 @@ module.exports = {
   mode: 'none',
   // Entry files for our popup and background pages
   entry: {
-    index: './src/index.js'
+    index: './src/index.js',
+    options: './src/options.js'
   },
   // Extension will be built into ./dist folder, which we can then load as unpacked extension in Chrome
   output: {
@@ -44,6 +46,13 @@ module.exports = {
     new WriteJsonPlugin({
       object: createManifest(),
       filename: 'manifest.json'
+    }),
+    // create popup.html from template and inject styles and script bundles
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['options'],
+      filename: 'options.html',
+      template: './src/options.html'
     }),
     // copy extension manifest and icons
     new CopyWebpackPlugin([

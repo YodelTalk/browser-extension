@@ -17,16 +17,26 @@
     "default_icon": {
       "19": "icons/toolbar.png",
       "38": "icons/toolbar@2x.png"
-    }
+    },
+    "default_popup": "options.html"
   },
-  "content_scripts": [{
-    "matches": [
-      "http://*/*",
-      "https://*/*"
-    ],
-    "js": [
-      "index.js"
-    ],
-    "run_at": "document_end"
-  }]
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "index.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
 }

@@ -1,15 +1,15 @@
-/* global Node, MutationObserver */
+/* global Node, MutationObserver, chrome */
 
 import { findPhoneNumbers, getCountryCallingCode, parseNumber } from 'libphonenumber-js'
 
-function replaceText (node) {
+function replaceText (node, country) {
   if (node.nodeType === Node.TEXT_NODE && node.parentNode) {
     if (node.parentNode.nodeName === 'TEXTAREA') {
       return
     }
 
     const content = node.textContent
-    const numbers = findPhoneNumbers(content)
+    const numbers = findPhoneNumbers(content, country)
 
     for (let i = 0; i < numbers.length; i++) {
       const linkText = content.substr(numbers[i]['startsAt'], numbers[i]['endsAt'] - numbers[i]['startsAt'])
@@ -51,30 +51,35 @@ function replaceText (node) {
     node.setAttribute('target', '_blank')
   } else {
     for (let i = 0; i < node.childNodes.length; i++) {
-      replaceText(node.childNodes[i])
+      replaceText(node.childNodes[i], country)
     }
   }
 }
 
-// Start from body
-replaceText(document.body)
+chrome.storage.sync.get({
+  defaultCountry: 'US'
+}, function (items) {
+  // Start from body
+  replaceText(document.body, items.defaultCountry)
 
-// Observe changes
-const observer = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    if (
-      mutation.addedNodes &&
-      mutation.addedNodes.length > 0 &&
-      mutation.addedNodes[0].getAttribute('class') !== 'yodel-replaced-link'
-    ) {
-      for (let i = 0; i < mutation.addedNodes.length; i++) {
-        const newNode = mutation.addedNodes[i]
-        replaceText(newNode)
+  // Observe changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.addedNodes &&
+        mutation.addedNodes.length > 0 &&
+        mutation.addedNodes[0].nodeType === Node.ELEMENT_NODE &&
+        mutation.addedNodes[0].getAttribute('class') !== 'yodel-replaced-link'
+      ) {
+        for (let i = 0; i < mutation.addedNodes.length; i++) {
+          const newNode = mutation.addedNodes[i]
+          replaceText(newNode, items.defaultCountry)
+        }
       }
-    }
+    })
   })
-})
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
 })
