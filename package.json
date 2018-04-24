@@ -17,8 +17,10 @@
     "write-json-webpack-plugin": "^1.0.2"
   },
   "scripts": {
+    "clean": "rm -rf dist*",
     "start": "npx webpack --watch",
     "build": "npx webpack -p",
-    "build:crx": "npm run build && /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --pack-extension=./dist"
+    "build:crx": "npm run clean; npm run build; /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --pack-extension=./dist",
+    "build:chrome": "npm run build:crx; cd dist; zip -rX ../dist.zip *; cd .."
   }
 }
