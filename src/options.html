@@ -4,26 +4,45 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <title>Yodel Extension Options</title>
 </head>
 
 <body style="padding: 5px;">
 
     <form>
-        <p style="font-size: 14px; margin-top: 0;">
-            <strong>US Default Country</strong>
-        </p>
-        <div class="switch" style="min-width: 150px; min-height: 100px;">
-            <label>
-                Int
-                <input type="checkbox" id="country">
-                <span class="lever"></span>
-                US
-            </label>
-            <p>When activated US (+1) will be set as default country for numbers without international prefix.</p>
+        <label>Default Country</label>
+        <div style="margin-top: 5px;">
+            <select id="default-country" class="browser-default">
+                <option value="" selected>None</option>
+                <option value="AU">Australia (+61)</option>
+                <option value="AT">Austria (+43)</option>
+                <option value="BE">Belgium (+32)</option>
+                <option value="BR">Brazil (+55)</option>
+                <option value="CA">Canada (+1)</option>
+                <option value="DK">Denmark (+45)</option>
+                <option value="FR">France (+33)</option>
+                <option value="DE">Germany (+49)</option>
+                <option value="IE">Ireland (+353)</option>
+                <option value="JP">Japan (+81)</option>
+                <option value="NL">Netherlands (+31)</option>
+                <option value="PL">Poland (+48)</option>
+                <option value="SE">Sweden (+46)</option>
+                <option value="ES">Spain (+34)</option>
+                <option value="CH">Switzerland (+41)</option>
+                <option value="GB">United Kingdom (+44)</option>
+                <option value="US">United States (+1)</option>
+            </select>
         </div>
 
+        <p></p>
+        <hr>
+
+        <p></p>
+        <input type="checkbox" id="blacklist-site">
+        <label>Blacklist Site</label>
+        <p></p>
+        <input type="checkbox" id="blacklist-domain">
+        <label>Blacklist Domain</label>
     </form>
 
     <script src="options.js "></script>
