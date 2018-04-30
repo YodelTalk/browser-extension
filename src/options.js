@@ -31,6 +31,8 @@ function saveOptions () {
         defaultCountry: country,
         blacklist: blacklist
       }, function () { })
+
+      document.getElementById('note').style.display = 'block'
     })
   })
 }
