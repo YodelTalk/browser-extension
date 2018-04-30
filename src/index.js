@@ -1,4 +1,4 @@
-/* global Node, MutationObserver, chrome */
+/* global Node, MutationObserver, URL, chrome */
 
 import { findPhoneNumbers, getCountryCallingCode, parseNumber } from 'libphonenumber-js'
 
@@ -76,8 +76,15 @@ function replaceText (node, country) {
 }
 
 chrome.storage.sync.get({
-  defaultCountry: 'US'
+  defaultCountry: '',
+  blacklist: []
 }, function (items) {
+  const url = window.location.href
+  const domain = new URL(url).hostname
+  if (items.blacklist.includes(url) || items.blacklist.includes(domain)) {
+    return
+  }
+
   // Start from body
   replaceText(document.body, items.defaultCountry)
 

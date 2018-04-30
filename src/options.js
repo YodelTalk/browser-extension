@@ -1,23 +1,56 @@
-/* global chrome */
+/* global URL, chrome */
 
 function saveOptions () {
-  var country = document.getElementById('country').checked
-  chrome.storage.sync.set({
-    defaultCountry: country ? 'US' : null
-  }, function () { })
+  chrome.storage.sync.get({
+    defaultCountry: '',
+    blacklist: []
+  }, function (items) {
+    chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+      let url = tabs[0].url
+      let domain = new URL(url).hostname
+      let blacklist = items.blacklist
+      let country = document.getElementById('default-country').value
+
+      if (document.getElementById('blacklist-site').checked && !blacklist.includes(url)) {
+        blacklist.push(url)
+      }
+
+      if (!document.getElementById('blacklist-site').checked && blacklist.includes(url)) {
+        blacklist.splice(blacklist.indexOf(url))
+      }
+
+      if (document.getElementById('blacklist-domain').checked && !blacklist.includes(domain)) {
+        blacklist.push(domain)
+      }
+
+      if (!document.getElementById('blacklist-domain').checked && blacklist.includes(domain)) {
+        blacklist.splice(blacklist.indexOf(domain))
+      }
+
+      chrome.storage.sync.set({
+        defaultCountry: country,
+        blacklist: blacklist
+      }, function () { })
+
+      document.getElementById('note').style.display = 'block'
+    })
+  })
 }
 
 function restoreOptions () {
   chrome.storage.sync.get({
-    defaultCountry: defaultCountry
+    defaultCountry: '',
+    blacklist: []
   }, function (items) {
-    document.getElementById('country').checked = items.defaultCountry === 'US'
+    chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+      let url = tabs[0].url
+      let domain = new URL(url).hostname
+      let blacklist = items.blacklist
+      document.getElementById('default-country').value = items.defaultCountry
+      document.getElementById('blacklist-site').checked = blacklist.includes(url)
+      document.getElementById('blacklist-domain').checked = blacklist.includes(domain)
+    })
   })
-}
-
-let defaultCountry = null
-if (window.navigator.languages && window.navigator.languages.includes('en-US')) {
-  defaultCountry = 'US'
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions)
