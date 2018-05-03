@@ -75,13 +75,24 @@ function replaceText (node, country) {
   }
 }
 
+let blacklist = [
+  'yodel.io',
+  'manage.yodel.io',
+  'yodeldev.net',
+  'manage.yodeldev.net',
+  'localhost',
+  '0.0.0.0',
+  '127.0.0.1'
+]
+
 chrome.storage.sync.get({
   defaultCountry: '',
   blacklist: []
 }, function (items) {
   const url = window.location.href
   const domain = new URL(url).hostname
-  if (items.blacklist.includes(url) || items.blacklist.includes(domain)) {
+  blacklist.concat(items.blacklist)
+  if (blacklist.includes(url) || blacklist.includes(domain)) {
     return
   }
 
