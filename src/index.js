@@ -91,7 +91,7 @@ chrome.storage.sync.get({
 }, function (items) {
   const url = window.location.href
   const domain = new URL(url).hostname
-  blacklist.concat(items.blacklist)
+  blacklist = blacklist.concat(items.blacklist)
   if (blacklist.includes(url) || blacklist.includes(domain)) {
     return
   }
