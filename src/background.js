@@ -9,9 +9,9 @@ function call (item) {
   chrome.tabs.create({ url: 'https://yodel.io/c/' + number })
 }
 
-chrome.extension.onRequest.addListener(function (request) {
+chrome.runtime.onMessage.addListener((request) => {
   if (request.cmd === 'create_menu') {
-    chrome.contextMenus.removeAll(function () {
+    chrome.contextMenus.removeAll(() => {
       chrome.contextMenus.create({
         title: 'Call ' + request.number + ' with yodel.io',
         id: 'call-yodel',
@@ -25,8 +25,7 @@ chrome.extension.onRequest.addListener(function (request) {
 })
 
 chrome.storage.sync.get({
-  defaultCountry: '',
-  blacklist: []
-}, function (items) {
+  defaultCountry: ''
+}, (items) => {
   country = items.defaultCountry
 })

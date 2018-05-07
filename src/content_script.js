@@ -77,19 +77,18 @@ let blacklist = [
   '0.0.0.0',
   '127.0.0.1'
 ]
-
 chrome.storage.sync.get({
   defaultCountry: '',
   blacklist: []
-}, function (items) {
+}, (items) => {
   // Context menu
-  document.addEventListener('selectionchange', function (event) {
+  document.addEventListener('selectionchange', (event) => {
     const selection = window.getSelection().toString()
     const number = parseNumberOrStripChars(selection, items.defaultCountry)
     if (number.length > 0) {
-      chrome.extension.sendRequest({cmd: 'create_menu', number: number})
+      chrome.runtime.sendMessage({cmd: 'create_menu', number: number})
     } else {
-      chrome.extension.sendRequest({cmd: 'delete_menu'})
+      chrome.runtime.sendMessage({cmd: 'delete_menu'})
     }
   }, true)
 
