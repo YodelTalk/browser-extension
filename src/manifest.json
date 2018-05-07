@@ -1,5 +1,4 @@
 {
-  "update_url": "https://clients2.google.com/service/update2/crx",
   "name": "Yodel Phone System",
   "short_name": "Yodel",
   "version": "VERSION",
@@ -26,8 +25,14 @@
   },
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "contextMenus"
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -35,7 +40,7 @@
         "https://*/*"
       ],
       "js": [
-        "index.js"
+        "content_script.js"
       ],
       "run_at": "document_end",
       "all_frames": true

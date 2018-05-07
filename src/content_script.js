@@ -1,6 +1,7 @@
 /* global Node, MutationObserver, URL, chrome */
 
-import { findPhoneNumbers, getCountryCallingCode, parseNumber } from 'libphonenumber-js'
+import { findPhoneNumbers, getCountryCallingCode } from 'libphonenumber-js'
+import { parseNumberOrStripChars } from './helper'
 
 function replaceText (node, country) {
   if (node.nodeType === Node.TEXT_NODE && node.parentNode !== null) {
@@ -57,15 +58,7 @@ function replaceText (node, country) {
     node.nodeName === 'A' && node.getAttribute('href') &&
     node.getAttribute('href').substr(0, 4) === 'tel:'
   ) {
-    let number = parseNumber(node.getAttribute('href').substr(4), country)
-
-    if ('country' in number && 'phone' in number) {
-      number = '+' + getCountryCallingCode(number['country']) + number['phone']
-    } else {
-      number = node.getAttribute('href').substr(4).replace(/\D/g, '')
-    }
-
-    node.setAttribute('href', 'https://yodel.io/c/' + number)
+    node.setAttribute('href', 'https://yodel.io/c/' + parseNumberOrStripChars(node.getAttribute('href').substr(4), country))
     node.setAttribute('title', 'call via yodel.io')
     node.setAttribute('target', '_blank')
   } else {
@@ -84,11 +77,21 @@ let blacklist = [
   '0.0.0.0',
   '127.0.0.1'
 ]
-
 chrome.storage.sync.get({
   defaultCountry: '',
   blacklist: []
-}, function (items) {
+}, (items) => {
+  // Context menu
+  document.addEventListener('selectionchange', (event) => {
+    const selection = window.getSelection().toString()
+    const number = parseNumberOrStripChars(selection, items.defaultCountry)
+    if (number.length > 0) {
+      chrome.runtime.sendMessage({cmd: 'create_menu', number: number})
+    } else {
+      chrome.runtime.sendMessage({cmd: 'delete_menu'})
+    }
+  }, true)
+
   const url = window.location.href
   const domain = new URL(url).hostname
   blacklist = blacklist.concat(items.blacklist)
