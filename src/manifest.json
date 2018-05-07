@@ -26,8 +26,14 @@
   },
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "contextMenus"
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -35,9 +41,10 @@
         "https://*/*"
       ],
       "js": [
-        "index.js"
+        "content_script.js"
       ],
-      "run_at": "document_end"
+      "run_at": "document_end",
+      "all_frames": true
     }
   ]
 }
