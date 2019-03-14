@@ -33,6 +33,7 @@ function saveOptions () {
       }, function () { })
 
       document.getElementById('note').style.display = 'block'
+      document.getElementById('note').onclick = function() { chrome.tabs.reload(tabs[0].id); window.close();}
     })
   })
 }
