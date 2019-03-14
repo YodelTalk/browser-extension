@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WriteJsonPlugin = require('write-json-webpack-plugin')
 
 module.exports = {
-  mode: 'none',
+  mode: 'production',
   // Entry files for our popup and background pages
   entry: {
     content_script: './src/content_script.js',
