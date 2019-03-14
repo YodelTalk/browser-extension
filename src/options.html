@@ -5,57 +5,153 @@
 <head>
   <meta charset="utf-8">
   <title>Yodel Extension Options</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #2A2A2A;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    header {
+      align-self: center;
+      padding-bottom: 16px;
+
+    }
+
+    #logo {
+      height: 40px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+      border-bottom: 1px solid rgba(42, 42, 42, 0.1);
+    }
+
+    label {
+      padding: 4px;
+    }
+
+    #default-country {
+      margin-top: 4px;
+    }
+
+    #note {
+      display: none;
+      margin: 8px;
+      padding: 4px;
+
+      border: 1px solid #2297d1;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 10pt;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: #fff;
+      background-color: #29b8ff;
+      border-radius: 5px;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1), inset 0 1px 0 0 hsla(0, 0%, 100%, .1), inset 0 -2.5em 2em -1.5em rgba(0, 0, 0, .01);
+      transition: box-shadow .3s;
+      outline: none;
+    }
+
+    #note:active {
+      box-shadow:
+        0 -1px 0 0 rgba(255, 255, 255, 0.1) inset,
+        /* White bottom inset */
+        0 2.5em 2em -1.5em rgba(0, 0, 0, 0.05) inset;
+      /* Dark top inset */
+    }
+
+    footer {
+      padding: 4px 8px;
+      text-align: right;
+    }
+
+    a,
+    a:active,
+    a:hover,
+    a:visited {
+      color: #2A2A2A;
+      text-decoration: none;
+    }
+
+  </style>
 </head>
 
-<body style="padding: 5px;">
+<body>
+
+  <header>
+    <img id="logo" src="icons/logo-blue.svg" alt="Yodel Logo" />
+  </header>
 
   <form>
-    <label>Default Country</label>
-    <div style="margin-top: 5px;">
-      <select id="default-country" class="browser-default">
-        <option value="" selected>None</option>
-        <option value="AU">Australia (+61)</option>
-        <option value="AT">Austria (+43)</option>
-        <option value="BE">Belgium (+32)</option>
-        <option value="BR">Brazil (+55)</option>
-        <option value="CA">Canada (+1)</option>
-        <option value="DK">Denmark (+45)</option>
-        <option value="FI">Finland (+358)</option>
-        <option value="FR">France (+33)</option>
-        <option value="DE">Germany (+49)</option>
-        <option value="IE">Ireland (+353)</option>
-        <option value="JP">Japan (+81)</option>
-        <option value="NL">Netherlands (+31)</option>
-        <option value="PL">Poland (+48)</option>
-        <option value="SE">Sweden (+46)</option>
-        <option value="ES">Spain (+34)</option>
-        <option value="CH">Switzerland (+41)</option>
-        <option value="GB">United Kingdom (+44)</option>
-        <option value="US">United States (+1)</option>
-      </select>
-    </div>
+    <section>
+      <label>
+        Default Country
 
-    <p></p>
-    <hr>
+        <select id="default-country">
+          <option value="" selected>None</option>
+          <option value="AU">Australia (+61)</option>
+          <option value="AT">Austria (+43)</option>
+          <option value="BE">Belgium (+32)</option>
+          <option value="BR">Brazil (+55)</option>
+          <option value="CA">Canada (+1)</option>
+          <option value="DK">Denmark (+45)</option>
+          <option value="FI">Finland (+358)</option>
+          <option value="FR">France (+33)</option>
+          <option value="DE">Germany (+49)</option>
+          <option value="IE">Ireland (+353)</option>
+          <option value="JP">Japan (+81)</option>
+          <option value="NL">Netherlands (+31)</option>
+          <option value="PL">Poland (+48)</option>
+          <option value="SE">Sweden (+46)</option>
+          <option value="ES">Spain (+34)</option>
+          <option value="CH">Switzerland (+41)</option>
+          <option value="GB">United Kingdom (+44)</option>
+          <option value="US">United States (+1)</option>
+        </select>
+      </label>
+    </section>
 
-    <p></p>
-    <input type="checkbox" id="blacklist-site">
-    <label>Blacklist Page</label>
-    <p></p>
-    <input type="checkbox" id="blacklist-domain">
-    <label>Blacklist Domain</label>
+    <section>
+      <label>
+        <input type="checkbox" id="blacklist-site" />
+        Blacklist Page
+      </label>
+
+      <label>
+        <input type="checkbox" id="blacklist-domain" />
+        Blacklist Domain
+      </label>
+    </section>
+
+    <button id="note">Save</button>
   </form>
 
-  <p style="text-align: right; margin-bottom: 0;">
+  <footer>
     <a href="https://help.yodel.io/support/solutions/articles/36000070682-google-chrome-extension" target="_blank">
       About
     </a>
-  </p>
-
-  <p style="background-color: beige; padding: 5px; display: none; cursor: pointer;" id="note">🔄 Click here to reload</p>
+  </footer>
 
   <script src="options.js"></script>
-
 </body>
 
 </html>
