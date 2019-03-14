@@ -4,10 +4,10 @@ import { findPhoneNumbers, getCountryCallingCode } from 'libphonenumber-js'
 import { parseNumberOrStripChars } from './helper'
 
 function openPopup (event, element) {
-    event.preventDefault()
-    let x = (window.screenX || window.screenLeft || 0) + 50
-    let y = (window.screenY || window.screenTop || 0) + 50
-    window.open(element.href, 'yodelPhonePopup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=601,height=700,left='+x+',top='+y);
+  event.preventDefault()
+  let x = (window.screenX || window.screenLeft || 0) + 50
+  let y = (window.screenY || window.screenTop || 0) + 50
+  window.open(element.href, 'yodelPhonePopup', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=601,height=700,left=' + x + ',top=' + y)
 };
 
 function replaceText (node, country) {
@@ -47,7 +47,7 @@ function replaceText (node, country) {
         link.setAttribute('href', 'https://yodel.io/c/' + countryCode + numbers[i]['phone'])
         link.setAttribute('target', '_blank')
         link.setAttribute('title', 'call via yodel.io')
-        link.onclick = function(e) { openPopup(e, this) }
+        link.onclick = function (e) { openPopup(e, this) }
         link.appendChild(document.createTextNode(linkText))
         replace.appendChild(link)
       }
@@ -69,8 +69,7 @@ function replaceText (node, country) {
     node.setAttribute('href', 'https://yodel.io/c/' + parseNumberOrStripChars(node.getAttribute('href').substr(4), country))
     node.setAttribute('title', 'call via yodel.io')
     node.setAttribute('target', '_blank')
-    node.onclick = function(e) { openPopup(e, this) }
-
+    node.onclick = function (e) { openPopup(e, this) }
   } else {
     for (let i = 0; i < node.childNodes.length; i++) {
       replaceText(node.childNodes[i], country)
@@ -96,9 +95,9 @@ chrome.storage.sync.get({
     const selection = window.getSelection().toString()
     const number = parseNumberOrStripChars(selection, items.defaultCountry)
     if (number.length > 0) {
-      chrome.runtime.sendMessage({cmd: 'create_menu', number: number})
+      chrome.runtime.sendMessage({ cmd: 'create_menu', number: number })
     } else {
-      chrome.runtime.sendMessage({cmd: 'delete_menu'})
+      chrome.runtime.sendMessage({ cmd: 'delete_menu' })
     }
   }, true)
 
