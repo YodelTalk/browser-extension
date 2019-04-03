@@ -21,4 +21,5 @@ npm run build:chrome
 npm run build:firefox
 ```
 
-Upload the `dist.zip` to [https://chrome.google.com/webstore/developer/dashboard](https://chrome.google.com/webstore/developer/dashboard)
+Upload the `dist.zip` to [Chrome Webstore](https://chrome.google.com/webstore/developer/dashboard)
+Upload the `.zip` from `web-ext-artifacts` to [Mozilla Addons](https://addons.mozilla.org/en-US/developers/addon/yodel-phone-system/versions/submit/)
