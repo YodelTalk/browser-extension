@@ -14,6 +14,7 @@
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "web-ext": "^3.0.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "write-json-webpack-plugin": "^1.1.0"
@@ -23,6 +24,7 @@
     "start": "npx webpack --watch",
     "build": "npx webpack -p",
     "build:crx": "npm run clean; npm run build; /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --pack-extension=./dist",
-    "build:chrome": "npm run build:crx; cd dist; zip -rX ../dist.zip *; cd .."
+    "build:chrome": "npm run build:crx; cd dist; zip -rX ../dist.zip *; cd ..",
+    "build:firefox": "npm run clean; npm run build; npx web-ext build -s ./dist -o"
   }
 }
