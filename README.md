@@ -15,7 +15,7 @@ npm install
 
 ```sh
 npm version (patch|minor|major)
-npm run build:firefox
+npm run build:chrome
 ```
 
 Upload the `dist.zip` to [Chrome Webstore](https://chrome.google.com/webstore/developer/dashboard).
