@@ -5,12 +5,12 @@ function saveOptions () {
     defaultCountry: '',
     blacklist: []
   }, function (items) {
-    chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true },
+    chrome.tabs.query({ active: true, lastFocusedWindow: true },
       function (tabs) {
-        let url = tabs[0].url
-        let domain = new URL(url).hostname
-        let blacklist = items.blacklist
-        let country = document.getElementById('default-country').value
+        const url = tabs[0].url
+        const domain = new URL(url).hostname
+        const blacklist = items.blacklist
+        const country = document.getElementById('default-country').value
 
         if (document.getElementById('blacklist-site').checked && !blacklist.includes(url)) {
           blacklist.push(url)
@@ -44,11 +44,11 @@ function restoreOptions () {
     defaultCountry: '',
     blacklist: []
   }, function (items) {
-    chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true },
+    chrome.tabs.query({ active: true, lastFocusedWindow: true },
       function (tabs) {
-        let url = tabs[0].url
-        let domain = new URL(url).hostname
-        let blacklist = items.blacklist
+        const url = tabs[0].url
+        const domain = new URL(url).hostname
+        const blacklist = items.blacklist
 
         document.getElementById('default-country').value = items.defaultCountry
         document.getElementById('blacklist-site').checked = blacklist.includes(url)

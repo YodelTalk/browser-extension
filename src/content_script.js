@@ -5,8 +5,8 @@ import { parseNumberOrStripChars } from './helper'
 
 function openPopup (event, element) {
   event.preventDefault()
-  let x = (window.screenX || window.screenLeft || 0) + 50
-  let y = (window.screenY || window.screenTop || 0) + 50
+  const x = (window.screenX || window.screenLeft || 0) + 50
+  const y = (window.screenY || window.screenTop || 0) + 50
   window.open(element.href, 'yodelPhonePopup', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=601,height=700,left=' + x + ',top=' + y)
 };
 
@@ -21,7 +21,7 @@ function replaceText (node, country) {
       return
     }
 
-    let content = node.textContent
+    const content = node.textContent
     const numbers = findPhoneNumbers(content, country)
 
     if (numbers.length === 0) {
@@ -29,22 +29,22 @@ function replaceText (node, country) {
     }
 
     let position = 0
-    let replace = document.createElement('span')
+    const replace = document.createElement('span')
     replace.setAttribute('class', 'yodel-replaced-link')
 
     for (let i = 0; i < numbers.length; i++) {
       // text before found number
-      replace.appendChild(document.createTextNode(content.substr(position, numbers[i]['startsAt'] - position)))
+      replace.appendChild(document.createTextNode(content.substr(position, numbers[i].startsAt - position)))
 
       // replace text with link
-      const linkText = content.substr(numbers[i]['startsAt'], numbers[i]['endsAt'] - numbers[i]['startsAt'])
+      const linkText = content.substr(numbers[i].startsAt, numbers[i].endsAt - numbers[i].startsAt)
       if (node.parentNode.nodeName === 'A' && linkText === content) {
         replace.appendChild(document.createTextNode(linkText))
       } else {
-        const countryCode = '+' + getCountryCallingCode(numbers[i]['country'])
+        const countryCode = '+' + getCountryCallingCode(numbers[i].country)
 
-        let link = document.createElement('a')
-        link.setAttribute('href', 'https://yodel.io/c/' + countryCode + numbers[i]['phone'])
+        const link = document.createElement('a')
+        link.setAttribute('href', 'https://yodel.io/c/' + countryCode + numbers[i].phone)
         link.setAttribute('target', '_blank')
         link.setAttribute('title', 'call via yodel.io')
         link.onclick = function (e) { openPopup(e, this) }
@@ -52,7 +52,7 @@ function replaceText (node, country) {
         replace.appendChild(link)
       }
 
-      position = numbers[i]['endsAt']
+      position = numbers[i].endsAt
     }
 
     // text after last number
