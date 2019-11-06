@@ -3,7 +3,7 @@
   "short_name": "Yodel",
   "version": "VERSION",
   "description": "DESCRIPTION",
-  "author": "YodelTalk",
+  "author": "YodelTalk Inc.",
   "homepage_url": "https://www.yodel.io",
   "manifest_version": 2,
   "icons": {
