@@ -6,7 +6,7 @@
   "repository": "https://github.com/yodeltalk/yodel-extension",
   "license": "MIT",
   "dependencies": {
-    "libphonenumber-js": "^1.7.26"
+    "libphonenumber-js": "^1.9.22"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
